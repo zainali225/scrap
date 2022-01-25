@@ -6,37 +6,27 @@ import {
   Text,
 } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import Home from './src/screens/Home';
+import SelectChannel from './src/screens/SelectChannel';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Streaming from './src/screens/Streaming';
 
+const Stack = createStackNavigator();
 
 const App = () => {
 
 
 
   return (
-    <SafeAreaView style={{ paddingTop: getStatusBarHeight() }}>
-      <Text>Scrap</Text>
-
-    </SafeAreaView>
+    <NavigationContainer >
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="SelectChannel" component={SelectChannel} />
+        <Stack.Screen name="Streaming" component={Streaming} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
