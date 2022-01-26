@@ -8,7 +8,7 @@ class Streaming extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            iframe: "https://123zcast.com/embed.php?player=desktop&v=bbtsp1&vw=100%&vh=520"
+            iframe:  "https://123zcast.com/embed.php?player=desktop&v=sonysixendia&vw=100%&vh=520"
             // iframe: "https://firebasestorage.googleapis.com/v0/b/user-reg-a28c1.appspot.com/o/test%2F'Awaara'%20Video%20Song%20-%20Alone%20-%20Bipasha%20Basu%20-%20Karan%20Singh%20Grover.mp4?alt=media&token=4ac1e38d-ef17-4143-9a6d-aae55e2dbb07"
         };
     }
@@ -38,7 +38,7 @@ class Streaming extends Component {
     }
 
     onNavigationStateChange = ({url}) => {
-        console.log(url)
+        console.log(url, new Date().toTimeString())
 
     }
 
@@ -48,11 +48,8 @@ class Streaming extends Component {
         const { iframe } = this.state
         return (
             <View style={{ flex: 1 }} >
-                <TouchableOpacity onPress={this.playExternal} >
-                    <Text>Share  </Text>
-
-                </TouchableOpacity>
-                <WebView source={{ uri: iframe }} style={{ width: "100%", height: 100 }} onNavigationStateChange={this.onNavigationStateChange} />
+                
+                <WebView androidLayerType="hardware" androidHardwareAccelerationDisabled={true} mediaPlaybackRequiresUserAction={false} source={{ uri: iframe }} style={{ width: "100%", height: 100 }} onNavigationStateChange={this.onNavigationStateChange} />
 
             </View>
         );
