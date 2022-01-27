@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getCrickHdHomeMethod } from '../api/methods';
+import { cricketHdHomeData, } from '../services/helper';
 
 class Home extends Component {
     constructor(props) {
@@ -10,29 +11,19 @@ class Home extends Component {
         };
     }
     async componentDidMount() {
-        let home = await getCrickHdHomeMethod()
+        let html = await getCrickHdHomeMethod()
 
-        let aTags = home.match(/<a[\s\da-zA-Z=":/.\-><]*a>/g)
-        let links = aTags = aTags.filter(i => i.includes("Watch"))
-        links = links.map(aTag => {
-            let title = aTag.match(/title="[\s\da-zA-Z=:/.\-><]*/g)[0].replace(`title="`, "")
-            let link = aTag.match(/https:.*title/g)[0].replace(`" title`, "")
+        let home = cricketHdHomeData(html)
 
-            return {
-                title,
-                link
-            }
-
-        })
-        console.log('links: ', links);
+        // console.log('links: ', links);
 
 
-        this.setState({ home: links, loading: false })
+        this.setState({ home, loading: false })
     }
 
     navigateSelectChannel = (tag) => {
 
-        this.props.navigation.navigate("SelectChannel",tag)
+        this.props.navigation.navigate("SelectChannel", tag)
     };
 
     render() {
