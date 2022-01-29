@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { fetchAddress, getCrickHdHomeMethod } from '../api/methods';
-import { cricketHdSelectChannelData } from '../services/helper'
+import { fetchAddress, getCrickHdHomeMethod } from '@api/methods';
+import { cricketHdSelectChannelData } from '@services/helper'
 
 class SelectChannel extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class SelectChannel extends Component {
     }
 
     navigateVideoPage = (tag) => {
-        this.props.navigation.navigate("Streaming", { url: tag.url })
+        this.props.navigation.navigate("cHdStreaming", { url: tag.url })
     };
 
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { getCrickHdHomeMethod } from '../api/methods';
-import { cricketHdHomeData, } from '../services/helper';
+import { getCrickHdHomeMethod } from '@api/methods';
+import { cricketHdHomeData, } from '@services/helper';
 
 class Home extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class Home extends Component {
 
     navigateSelectChannel = (tag) => {
 
-        this.props.navigation.navigate("SelectChannel", tag)
+        this.props.navigation.navigate("cHdSelectChannel", tag)
     };
 
     render() {

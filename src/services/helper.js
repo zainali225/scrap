@@ -1,7 +1,16 @@
 
 const cheerio = require("cheerio")
+import { Dimensions } from 'react-native'
+import { getStatusBarHeight } from 'react-native-status-bar-height'
 
-const $ = cheerio.load('<h2 class="title">Hello world</h2>');
+
+
+const HEIGHT = Dimensions.get('window').height
+const WIDTH = Dimensions.get('window').width
+
+export const wp = float => WIDTH * float / 100
+export const hp = float => HEIGHT * float / 100
+export const sHeight = getStatusBarHeight()
 
 
 function cricketHdHomeData(html) {
@@ -26,6 +35,7 @@ function cricketHdHomeData(html) {
     return results
 
 }
+
 function cricketHdSelectChannelData(html) {
     const $ = cheerio.load(html);
     const results = []
@@ -61,8 +71,58 @@ function getCricketHdIframe(html) {
 
 }
 
+function freeStreamsHomeData(html) {
+    const $ = cheerio.load(html);
+    const results = []
+    $("tr", html).each(function () {
+        const title = $(this).find(".event-title").text()
+        // console.log('title: ', title);
+        let icon = $(this).find("td").find("img").attr("src")
+        let time = $(this).find("td").text()
+
+        let urls = []
+        $(this).find("td").find("a").each(function () {
+
+            let obj = {
+                title: $(this).text(),
+                url: $(this).attr("href")
+            }
+            urls.push(obj)
+            // console.log('text: ', text);
+
+        })
+        if (title && icon && time && !!urls.length) {
+            results.push({ title, urls, time, icon })
+        }
+        else {
+            // console.log(title, icon, time, urls)
+        }
+    })
+
+    return results
+
+}
+
+function getFreeStreamsIframe(html) {
+    const $ = cheerio.load(html);
+
+    let iframe = ""
+    $(".entry-content", html).each(function () {
+        let iframeTag = $(this).text()
+        console.log('iframeTag: ', iframeTag);
+
+    })
+
+    return iframe
+
+}
+
+
+
 export {
     cricketHdHomeData,
     cricketHdSelectChannelData,
-    getCricketHdIframe
+    getCricketHdIframe,
+    freeStreamsHomeData,
+    getFreeStreamsIframe
 }

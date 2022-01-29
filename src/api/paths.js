@@ -4,7 +4,7 @@
 
 export default {
     getCrickHdHome: "https://fc7.crichd.com/new-home7",
-
+    freeStreamsHome: "http://freestreams-live1.com/"
 
 
 

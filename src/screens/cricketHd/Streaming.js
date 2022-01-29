@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, Share, Linking, ActivityIndicator } from 
 import SendIntentAndroid from 'react-native-send-intent';
 import IntentLauncher, { IntentConstant } from 'react-native-intent-launcher'
 import WebView from 'react-native-webview';
-import { fetchAddress } from '../api/methods';
-import { getCricketHdIframe } from '../services/helper';
+import { fetchAddress } from '@api/methods';
+import { getCricketHdIframe, wp, hp } from '@services/helper';
 
 class Streaming extends Component {
     constructor(props) {
@@ -18,8 +18,10 @@ class Streaming extends Component {
     componentDidMount = async () => {
         let html = await fetchAddress(this.state.url)
 
-        let iframe = getCricketHdIframe(html)
-        this.setState({ loading: false, iframe: iframe.replace(/\s/g, "%20") })
+        let iframe = getCricketHdIframe(html).replace(/\s/g, "%20")
+        console.log('iframe: ', iframe);
+        // this.setState({ loading: false, iframe: iframe })
+        this.setState({ loading: false, iframe: iframe })
     };
 
 
@@ -52,7 +54,7 @@ class Streaming extends Component {
 
         console.log('= ', url === iframe);
         console.log('url === iframe: ', url, iframe);
-        if (this.state.iframe === url && this.webViewRef) {
+        if (this.state.iframe === url) {
             // this.webViewRef.reload()
         }
         else {
@@ -66,21 +68,20 @@ class Streaming extends Component {
 
         const { iframe, loading } = this.state
         return (
-            <View style={{ flex: 1 }} >
-                {
-                    loading ?
-                        <ActivityIndicator style={{ flex: 1, justifyContent: "center" }} />
-                        :
-                        <WebView
-                            ref={ref => this.webViewRef = ref}
-                            androidLayerType="hardware"
-                            androidHardwareAccelerationDisabled={true}
-                            mediaPlaybackRequiresUserAction={false}
-                            source={{ uri: iframe }} style={{ width: "100%", height: 100 }}
-                            onNavigationStateChange={this.onNavigationStateChange} />
-                }
 
-            </View>
+            loading ?
+                <ActivityIndicator style={{ flex: 1, justifyContent: "center" }} />
+                :
+                <WebView
+                    ref={ref => this.webViewRef = ref}
+                    allowsFullscreenVideo
+                    automaticallyAdjustContentInsets
+                    
+                    thirdPartyCookiesEnabled={false}
+                    mediaPlaybackRequiresUserAction={false}
+                    source={{ uri: iframe }} style={{ width: "100%", height: "100%" }}
+                    onNavigationStateChange={this.onNavigationStateChange} />
+
         );
     }
 }
