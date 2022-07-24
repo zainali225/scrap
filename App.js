@@ -10,6 +10,7 @@ import freeStreamHome from './src/screens/freeStreams/Home';
 
 import AppMenu from './src/screens'
 import freeStreamStreaming from './src/screens/freeStreams/Streaming';
+import PlayChannel from './src/screens/PlayChannel'
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,9 @@ const App = () => {
         {
           freeStreamStack()
         }
+
+        <Stack.Screen name="PlayChannel" component={PlayChannel} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

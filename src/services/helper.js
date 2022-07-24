@@ -1,5 +1,6 @@
 
 const cheerio = require("cheerio")
+import { fetchAddress } from '@api/methods'
 import { Dimensions } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
 
@@ -36,7 +37,9 @@ function cricketHdHomeData(html) {
 
 }
 
-function cricketHdSelectChannelData(html) {
+async function cricketHdSelectChannelData(url) {
+
+    const html = await fetchAddress(url)
     const $ = cheerio.load(html);
     const results = []
     $("tr", html).each(function () {
